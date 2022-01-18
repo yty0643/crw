@@ -1,0 +1,10 @@
+@value big_black, big_white from '../../common/colors.css';
+
+.header {
+  width: 100%;
+  background-color: big_black;
+}
+
+.title {
+  color: #dbdbdb;
+}

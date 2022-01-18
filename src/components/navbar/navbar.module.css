@@ -1,0 +1,10 @@
+@value big_darkBlack, big_lightWhite from '../../common/colors.css';
+
+.navbar {
+  width: 100%;
+  background-color: big_darkBlack;
+}
+
+.title {
+  color: big_lightWhite;
+}
