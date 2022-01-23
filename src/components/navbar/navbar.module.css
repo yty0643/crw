@@ -1,10 +1,12 @@
 @value big_darkBlack, big_lightWhite from '../../common/colors.css';
 
 .navbar {
+  display: flex;
+
   width: 100%;
   background-color: big_darkBlack;
 }
 
-.title {
+.userName {
   color: big_lightWhite;
 }

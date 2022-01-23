@@ -1,14 +1,10 @@
 import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBIHwXVio8_omoMHuV2rc011LJsMYTRKWI",
-  authDomain: "card-maker-7429f.firebaseapp.com",
-  databaseURL: "https://card-maker-7429f-default-rtdb.firebaseio.com",
-  projectId: "card-maker-7429f",
-  storageBucket: "card-maker-7429f.appspot.com",
-  messagingSenderId: "494221704810",
-  appId: "1:494221704810:web:521271393c7442e7fe9413",
-  measurementId: "G-8Y1CMPYS9Y"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_FIREBASE_DB_URL,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
 };
 
 // Initialize Firebase

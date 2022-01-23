@@ -5,7 +5,8 @@ class AuthService{
         this.auth = getAuth();
         this.provider = new GithubAuthProvider();
     }
-    signIn = () => {
+
+    signIn(){
         return(
         signInWithPopup(this.auth, this.provider)
         .then((result) => {
@@ -21,13 +22,13 @@ class AuthService{
         )
     }
 
-    signOut = () => {
+    signOut(){
         this.auth.signOut();
     }
 
-    authChange = (upda) => {
+    authChange(goto) {       
         this.auth.onAuthStateChanged(user => {
-            upda()
+            user && goto(user)
         })
     }
 }

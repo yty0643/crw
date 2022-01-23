@@ -1,9 +1,10 @@
 import React from "react";
 import styles from "./navbar.module.css";
-const Navbar = (props) => {
+const Navbar = ({ user, signOut }) => {
   return (
     <nav className={styles.navbar}>
-      <p className={styles.title}>navbar</p>
+      <p className={styles.userName}>{user}</p>
+      <button onClick={signOut}>signOut</button>
     </nav>
   );
 };
