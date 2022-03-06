@@ -1,0 +1,72 @@
+import React, { useRef, useState } from "react";
+import { useEffect } from "react/cjs/react.development";
+
+const Test = ({ githubService }) => {
+  const [objSha, setObjSha] = useState();
+  const [blobSha, setBlobSha] = useState();
+  const [treeSha, setTreeSha] = useState();
+  const [commitSha, setCommitSha] = useState();
+
+  // useEffect(() => {
+  //   githubService //
+  //     .getLastObjSha()
+  //     .then((res) => {
+  //       let ret = {};
+  //       ret.sha1 = res[0].sha;
+  //       return ret;
+  //     })
+  //     .then((ret) => {
+  //       githubService //
+  //         .getNewBlobSha()
+  //         .then((res) => {
+  //           ret.sha2 = res.sha;
+  //         });
+  //       console.log(ret);
+
+  //       return ret;
+  //     })
+  //     .then((ret) => {
+  //       githubService
+  //         .getNewTreeSha(ret.sha1, ret.sha2)
+  //         .then((res) => console.log(res));
+  //     });
+  // }, []);
+
+  // githubService
+  //   .getTree("40524832a1254719afc8770d7ecaca0ec3094226")
+  //   .then((res) => res.json())
+  //   .then((res) => console.log(res));
+
+  // githubService //
+  //   .getLastObjSha()
+  //   .then((res) => console.log(res))
+  //   .then(() =>
+  //     githubService.getTree("ad26593e1125a22a783cddb9d9e3a559cfba2916")
+  //   )
+  //   .then((res) => res.json())
+  //   .then((res) => console.log(res));
+
+  //   useEffect(() => {
+  //     githubService
+  //       .getLastObjSha()
+  //       .then((res) => res.json())
+  //       .then((res) => setObjSha(res[0].sha))
+  //       .then(() => githubService.getNewBlobSha())
+  //       .then((res) => res.json())
+  //       .then((res) => setBlobSha(res.sha))
+  //       .then(() => githubService.getNewTreeSha(objSha, blobSha))
+  //       .then((res) => res.json())
+  //       .then((res) => setTreeSha(res.sha))
+  //       .then(() => githubService.getNewCommitSha(objSha, treeSha))
+  //       .then((res) => res.json())
+  //       .then((res) => setCommitSha(res.sha));
+  //   }, []);
+
+  return (
+    <div>
+      <div></div>
+    </div>
+  );
+};
+
+export default Test;
