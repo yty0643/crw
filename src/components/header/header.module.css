@@ -1,8 +1,8 @@
-@value big_black, big_white from '../../common/colors.css';
+@value CRW_black, CRW_white from '../../common/colors.css';
 
 .header {
   width: 100%;
-  background-color: big_black;
+  background-color: CRW_black;
 }
 
 .title {

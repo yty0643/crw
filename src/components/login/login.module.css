@@ -1,0 +1,84 @@
+@value CRW_black, CRW_ligthGray, CRW_green, CRW_lightBlack, CRW_gray, CRW_white from '../../common/colors.css';
+
+body {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  transform: translateY(-15vh);
+}
+
+.logo {
+  font-size: 2rem;
+  padding: 0.7rem;
+  border: 3px solid rgb(63, 63, 63);
+  background-color: rgb(63, 63, 63);
+  color: white;
+  border-radius: 50px;
+  margin: 3rem 0;
+}
+
+.title {
+  margin: 0.6rem 0;
+  font-size: 1.2rem;
+}
+
+.signIn,
+.contact {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 15rem;
+  margin: 0.3rem 0;
+  padding: 0.7rem 0;
+  border: 1px solid rgb(222, 233, 243);
+  border-radius: 5px;
+  background-color: rgb(237, 244, 250);
+}
+
+.email {
+  font-size: 0.5rem;
+  margin-bottom: 0.5rem;
+  color: rgb(0, 68, 255);
+  cursor: pointer;
+}
+
+.signInBtn {
+  width: 10rem;
+  height: 1.6rem;
+  font-size: 0.85rem;
+  border-radius: 5px;
+  background-color: rgb(82, 175, 87);
+  color: white;
+  transition: all 100ms ease-in;
+}
+.signInBtn:hover {
+  background-color: rgb(74, 161, 78);
+}
+
+.githubBtn,
+.messageBtn {
+  font-size: 1.7rem;
+  color: rgb(63, 63, 63);
+  transition: all 100ms ease-in;
+  padding: 0 0.5rem;
+}
+.githubBtn:hover,
+.messageBtn:hover {
+  color: rgb(137, 169, 216);
+  transform: scale(1.1);
+}
+
+.description {
+  font-size: 0.5rem;
+  color: rgb(179, 187, 211);
+}

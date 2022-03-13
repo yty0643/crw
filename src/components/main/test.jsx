@@ -1,42 +1,43 @@
-import React, { useRef, useState } from "react";
-import { useEffect } from "react/cjs/react.development";
+import React, { useEffect, useState } from "react";
 
-const Test = ({ githubService }) => {
-  const [objSha, setObjSha] = useState();
-  const [blobSha, setBlobSha] = useState();
-  const [treeSha, setTreeSha] = useState();
-  const [commitSha, setCommitSha] = useState();
+const Test = ({ dbService }) => {
+  const [userId, setUserId] = useState("yty0643");
+  const [regList, setRegList] = useState();
+  const [regArr, setRegArr] = useState();
 
-  let a = 2;
-  const set = async (sha) => {
-    a = sha;
+  const onClick = () => {
+    dbService.readAll(userId).then((res) => {
+      if (res.exists()) {
+        setRegList(res.val());
+      } else {
+        console.log("no data");
+      }
+    });
   };
+
   useEffect(() => {
-    githubService //
-      .getLastObjSha()
-      .then((res) => {
-        set(res[0].sha);
-      })
-      .then(console.log(a));
-  }, []);
-  //   useEffect(() => {
-  //     githubService
-  //       .getLastObjSha()
-  //       .then((res) => res.json())
-  //       .then((res) => setObjSha(res[0].sha))
-  //       .then(() => githubService.getNewBlobSha())
-  //       .then((res) => res.json())
-  //       .then((res) => setBlobSha(res.sha))
-  //       .then(() => githubService.getNewTreeSha(objSha, blobSha))
-  //       .then((res) => res.json())
-  //       .then((res) => setTreeSha(res.sha))
-  //       .then(() => githubService.getNewCommitSha(objSha, treeSha))
-  //       .then((res) => res.json())
-  //       .then((res) => setCommitSha(res.sha));
-  //   }, []);
+    if (!regList) return;
+    let arr = [];
+    Object.keys(regList).map((repoName) => {
+      arr.push(...Object.values(regList[repoName]));
+    });
+    setRegArr(arr);
+  }, [regList]);
+
   return (
     <div>
-      <div></div>
+      <button onClick={onClick}>click</button>
+      <ul>
+        {regArr &&
+          regArr.map((item, index) => {
+            return (
+              <li key={index}>
+                {item.time}
+                {item.file}
+              </li>
+            );
+          })}
+      </ul>
     </div>
   );
 };

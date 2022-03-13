@@ -1,0 +1,7 @@
+.repos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(242, 246, 248);
+}

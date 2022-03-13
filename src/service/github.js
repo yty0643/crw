@@ -5,16 +5,82 @@ class GithubService{
         });
     }
 
-    list() {
-        return (
-            fetch("https://api.github.com/user/repos", {
-                headers: this.myHeaders,
-            })
-        )
+    async list(userId) {
+        const res = await fetch(`https://api.github.com/user/repos`, {
+            headers: this.myHeaders,
+        })
+        return await res.json();
     }
 
-    async getLastObjSha() { //get current commit object's sha
-        const res = await fetch("https://api.github.com/repos/yty0643/3big/commits", {
+    async getLastObjSha(userId, repo) {
+        const res = await fetch(`https://api.github.com/repos/${userId}/${repo}/commits`, {
+            method: "GET",
+            headers: this.myHeaders,
+            redirect: "follow",
+        })
+        return await res.json();
+    }
+      
+    async getNewBlobSha(userId, repo, content) {
+        const res = await fetch(`https://api.github.com/repos/${userId}/${repo}/git/blobs`, {
+            method: 'POST',
+            headers: this.myHeaders,
+            redirect: 'follow',
+            body:JSON.stringify({content}),
+        })
+        return await res.json();
+    }
+
+    async getNewTreeSha(userId, repo, path, objsha,blobsha) {
+        const res = await fetch(`https://api.github.com/repos/${userId}/${repo}/git/trees`, {
+            method: 'POST',
+            headers: this.myHeaders,
+            redirect: 'follow',
+            body: JSON.stringify({
+                base_tree:objsha,
+                tree: [{
+                    "path": path, //새 파일 추가할 경로 어떡하지
+                    "mode": "100644",
+                    "type": "blob",
+                    "sha": blobsha,
+                    // "content":"hello world",
+                }]
+            })
+        })
+        return await res.json();
+    }
+
+    async getNewCommitSha(userId, repo, objsha,treeSha) {
+        const res = await fetch(`https://api.github.com/repos/${userId}/${repo}/git/commits`, {
+            method: 'POST',
+            headers: this.myHeaders,
+            redirect: 'follow',
+            body: JSON.stringify({
+                "message": "add test commit from 3big-reactwebpage", //메세지 입력하게 해주고
+                "parents": [
+                    objsha
+                ],
+                "tree": treeSha,
+            })
+        })
+        return await res.json();
+    }
+
+    async updateReference(userId, repo, commitSha) {
+        const res = await fetch(`https://api.github.com/repos/${userId}/${repo}/git/refs/heads/master`, {
+            method: "POST",
+            headers: this.myHeaders,
+            redirect: "follow",
+            body: JSON.stringify({
+                "ref": "refs/heads/master",
+                "sha": commitSha
+            })
+        })
+        return await res.json();
+    }
+
+    async getTree(userId, repo, treeSha) {
+        const res = await fetch(`https://api.github.com/repos/${userId}/${repo}/git/trees/${treeSha}?recursive=1`, {
             method: "GET",
             headers: this.myHeaders,
             redirect: "follow",
@@ -22,64 +88,22 @@ class GithubService{
         return await res.json();
     }
 
-    getNewBlobSha() { //get new blob's sha
-        return(
-            fetch("https://api.github.com/repos/yty0643/3big/git/blobs", {
-                method: 'POST',
-                headers: this.myHeaders,
-                redirect: 'follow',
-                body:JSON.stringify({"content":"hello world"}),
-            })
-        )
-    } 
-
-    getNewTreeSha(objsha,blobsha) { //get new tree's sha
-        return(
-            fetch("https://api.github.com/repos/yty0643/3big/git/trees", {
-                method: 'POST',
-                headers: this.myHeaders,
-                redirect: 'follow',
-                body: JSON.stringify({
-                    base_tree:objsha,
-                    tree: [{
-                        "path": "src/components/main/text.txt",
-                        "mode": "100644",
-                        "type": "blob",
-                        "sha": blobsha,
-                    }]
-                })
-            })
-        )
+    async getBlob(userId, repo, blobSha) {
+        const res = await fetch(`https://api.github.com/repos/${userId}/${repo}/git/blobs/${blobSha}`, {
+            method: 'GET',
+            headers: this.myHeaders,
+            redirect: 'follow',
+        })
+        return await res.json();
     }
 
-    getNewCommitSha(objsha,treeSha) { //get new commit's sha
-        return(
-            fetch("https://api.github.com/repos/yty0643/3big/git/commits", {
-                method: 'POST',
-                headers: this.myHeaders,
-                redirect: 'follow',
-                body: JSON.stringify({
-                    "message": "add test commit from 3big-reactwebpage",
-                    "parents": [
-                        objsha
-                    ],
-                    "tree": treeSha,
-                })
-            })
-        )
-    }
-
-    getRef(commitSha) {
-        return(
-            fetch("https://api.github.com/repos/yty0643/3big/git/ref/heads/master", {
-                method: 'PATCH',
-                headers: this.myHeaders,
-                redirect: 'follow',
-                body: JSON.stringify({
-                   "sha":commitSha,
-                })
-            })
-        )
+    async getRepo(userId, repo) {
+        const res = await fetch(`https://api.github.com/repos/${userId}/${repo}`, {
+            method: 'GET',
+            headers: this.myHeaders,
+            redirect: 'follow',
+        })
+        return await res.json();
     }
 }
 

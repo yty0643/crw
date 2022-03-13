@@ -1,35 +1,23 @@
-import { getAuth, signInWithPopup, GithubAuthProvider } from "firebase/auth";
+import { getAuth, signInWithPopup, GithubAuthProvider, browserSessionPersistence, setPersistence  } from "firebase/auth";
 
 class AuthService{
-    constructor() {
-        this.auth = getAuth();
-        this.provider = new GithubAuthProvider();
+    
+    async signIn() {
+        const auth = getAuth();
+        const provider = new GithubAuthProvider();
+        await setPersistence(auth, browserSessionPersistence);
+        return await signInWithPopup(auth, provider);
     }
 
-    signIn(){
-        return(
-        signInWithPopup(this.auth, this.provider)
-        .then((result) => {
-            // This gives you a GitHub Access Token. You can use it to access the GitHub API.
-            const credential = GithubAuthProvider.credentialFromResult(result);
-            const token = credential.accessToken;
-        
-            // The signed-in user info.
-            const user = result.user;
-            // ...
-            return user
-        })
-        )
+    signOut() {
+        const auth = getAuth();
+        return auth.signOut()
     }
 
-    signOut(){
-        this.auth.signOut();
-    }
-
-    authChange(goto) {       
-        this.auth.onAuthStateChanged(user => {
-            user && goto(user)
-        })
+    getUser(callback) {
+        const auth = getAuth();
+        const user = auth.currentUser;
+        callback(user);
     }
 }
 

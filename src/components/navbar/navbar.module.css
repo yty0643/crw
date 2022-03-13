@@ -1,12 +1,35 @@
-@value big_darkBlack, big_lightWhite from '../../common/colors.css';
+@value CRW_darkBlack, CRW_lightWhite from '../../common/colors.css';
 
 .navbar {
   display: flex;
-
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
-  background-color: big_darkBlack;
 }
 
-.userName {
-  color: big_lightWhite;
+.logo {
+  font-size: 1rem;
+  padding: 0.4rem;
+  border: 3px solid rgb(63, 63, 63);
+  background-color: rgb(63, 63, 63);
+  color: white;
+  border-radius: 50px;
+}
+
+.box {
+  display: flex;
+  align-items: center;
+  margin: 1rem 1.5rem;
+}
+
+.webName {
+  margin: 0 0.6rem;
+}
+
+.userBtn,
+.bellBtn {
+  font-size: 1.2rem;
+  color: rgb(63, 63, 63);
+  margin: 0 0.2rem;
 }
