@@ -1,8 +1,6 @@
-@value CRW_black from '../../common/colors.css';
-
-.mainDoc {
-  height: 100vh;
+.repoDoc {
   background-color: rgb(242, 246, 248);
+  min-height: 100vh;
 }
 
 .section {

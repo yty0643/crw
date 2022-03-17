@@ -1,0 +1,39 @@
+.schedule {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.contents {
+  display: flex;
+  align-items: center;
+  margin: 1rem;
+}
+
+.now,
+.after {
+  font-size: 0.5rem;
+  text-align: center;
+}
+
+.true,
+.false {
+  width: 1rem;
+  height: 1rem;
+  margin: 0 0.25rem;
+}
+
+.true {
+  background-color: rgba(99, 212, 99, 0.753);
+}
+.false {
+  background-color: rgb(230, 230, 230);
+}
+
+@media screen and (max-width: 768px) {
+  .true,
+  .false {
+    width: 1rem;
+    height: 1rem;
+    margin: 0 1px;
+  }
+}

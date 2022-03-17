@@ -1,0 +1,28 @@
+.previewFile {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+}
+
+.title {
+  text-align: center;
+}
+
+.contents {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem;
+  background-color: rgb(30, 30, 30);
+  border: 1px solid rgb(175, 175, 175);
+  border-radius: 1rem;
+  box-shadow: 0px 1px 5px -1px #4e4e4e;
+}
+
+.code {
+  margin: 1rem;
+  overflow: auto;
+  word-break: break-all;
+  white-space: pre-wrap;
+  color: rgb(133, 181, 209);
+  color: rgb(221, 193, 101);
+}

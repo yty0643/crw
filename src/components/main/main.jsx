@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Footer from "../footer/footer";
 import Header from "../header/header";
-import Navbar from "../navbar/navbar";
-import RegPreview from "../reg_preview/reg_preview";
 import RepoList from "../repo_list/repo_list";
+import Schedule from "../schedule/schedule";
 import styles from "./main.module.css";
 
 const Main = ({ authService, githubService, dbService }) => {
@@ -11,32 +11,62 @@ const Main = ({ authService, githubService, dbService }) => {
   const [userId, setUserId] = useState();
   const [repositories, setRepoitories] = useState();
   const [regsList, setRegsList] = useState();
-  const [regArr, setRegArr] = useState();
+  const [repoNameArr, setRepoNameArr] = useState();
+  const [token, setToken] = useState();
+  const [weekArr, setWeekArr] = useState([
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
 
   const signOut = () => {
     authService.signOut().then(() => setUserId());
   };
 
-  const getRepo = (repo, callback) => {
-    githubService.getRepo(userId, repo).then((res) => callback(res));
+  const tokenDel = () => {
+    dbService.removeToken(userId);
+    navigate("/");
+  };
+
+  const getLag = (repo, callback) => {
+    githubService //
+      .getLanguages(userId, repo)
+      .then((res) => callback(res));
   };
 
   useEffect(() => {
     authService.getUser((user) => {
-      if (user) setUserId(user.reloadUserInfo.screenName);
-      else navigate("/");
+      if (user) {
+        setUserId(user.reloadUserInfo.screenName);
+        dbService.readToken(user.reloadUserInfo.screenName).then((res) => {
+          if (res.exists()) {
+            setToken(res.val());
+          } else {
+            navigate("/");
+          }
+        });
+      } else navigate("/");
     });
   });
 
   useEffect(() => {
     if (!userId) return;
-    githubService.list(userId).then((res) => setRepoitories(res));
+    githubService.list(userId).then((res) => {
+      let arr = [];
+      res.map((item) => {
+        arr.push(item.name);
+      });
+      setRepoNameArr(arr);
+      setRepoitories(res);
+    });
 
     dbService.readAll(userId).then((res) => {
       if (res.exists()) {
         setRegsList(res.val());
-      } else {
-        console.log("no data");
       }
     });
   }, [userId]);
@@ -44,15 +74,17 @@ const Main = ({ authService, githubService, dbService }) => {
   useEffect(() => {
     if (!regsList) return;
     let arr = [];
+    const week = [false, false, false, false, false, false, false];
+    const now = new Date(new Date().toLocaleDateString());
     Object.keys(regsList).map((repoName) => {
       arr.push(...Object.values(regsList[repoName]));
     });
-    arr.sort((a, b) => {
-      if (a.time < b.time) return -1;
-      else return 1;
+    arr.map((item) => {
+      const date = new Date(item.time);
+      const diff = (date - now) / (1000 * 3600 * 24);
+      if (diff >= 0 && diff < 7) week[diff] = true;
     });
-    setRegArr(arr);
-
+    setWeekArr(week);
     arr.map((item) => {
       const st = new Date();
       const end = new Date(item.time);
@@ -81,6 +113,7 @@ const Main = ({ authService, githubService, dbService }) => {
       //       githubService.getNewCommitSha(
       //         item.userId,
       //         item.repo,
+      //         item.msg,
       //         shaObj.objSha,
       //         shaObj.treeSha
       //       )
@@ -95,12 +128,30 @@ const Main = ({ authService, githubService, dbService }) => {
   }, [regsList]);
 
   return (
-    <section className={styles.main}>
-      <Navbar userId={userId} signOut={signOut} />
-      {/* <Header /> */}
-      {repositories && <RepoList list={repositories} getRepo={getRepo} />}
-      {regArr && <RegPreview regArr={regArr} />}
-    </section>
+    <>
+      {token && (
+        <div className={styles.mainDoc}>
+          <Header
+            dbService={dbService}
+            userId={userId}
+            repoNameArr={repoNameArr}
+            signOut={signOut}
+            tokenDel={tokenDel}
+          />
+          <div className={styles.section}>
+            <Schedule weekArr={weekArr} />
+            {repositories && (
+              <RepoList
+                list={repositories}
+                regsList={regsList}
+                getLag={getLag}
+              />
+            )}
+          </div>
+          <Footer />
+        </div>
+      )}
+    </>
   );
 };
 

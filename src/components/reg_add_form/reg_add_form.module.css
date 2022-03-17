@@ -1,0 +1,60 @@
+.regAddForm {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  width: 80%;
+  padding: 0.2rem;
+  background-color: rgb(210, 241, 204);
+  color: rgb(0, 0, 0);
+  border-radius: 0.5rem;
+  box-shadow: 0px 1px 5px -1px #929292;
+}
+.fileBtn,
+.timeBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  margin-bottom: 0.2rem;
+  padding: 0;
+  width: 7rem;
+  font-weight: 400;
+  font-size: 1rem;
+  outline: 1px solid #7e7e7e;
+  border-radius: 3px;
+  box-shadow: inset 0px 0px 2px 0px #808080;
+  cursor: pointer;
+}
+.fileBtn {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fileBtn:hover,
+.timeBtn:hover {
+  background-color: rgb(68, 116, 72);
+  color: white;
+}
+
+.fileInput {
+  display: none;
+}
+
+.msgInput {
+  outline: none;
+}
+
+.addBtn {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  font-size: 1.3rem;
+  color: rgb(71, 71, 71);
+  transform: translateX(-0.65rem) translateY(-0.6rem);
+}
+.addBtn:hover {
+  color: rgb(165, 192, 165);
+}

@@ -1,45 +1,25 @@
-import React, { useEffect, useState } from "react";
-
-const Test = ({ dbService }) => {
-  const [userId, setUserId] = useState("yty0643");
-  const [regList, setRegList] = useState();
-  const [regArr, setRegArr] = useState();
-
-  const onClick = () => {
-    dbService.readAll(userId).then((res) => {
-      if (res.exists()) {
-        setRegList(res.val());
-      } else {
-        console.log("no data");
-      }
-    });
-  };
-
-  useEffect(() => {
-    if (!regList) return;
-    let arr = [];
-    Object.keys(regList).map((repoName) => {
-      arr.push(...Object.values(regList[repoName]));
-    });
-    setRegArr(arr);
-  }, [regList]);
-
+import React, { forwardRef, useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { ko } from "date-fns/esm/locale";
+import styles from "./test.module.css";
+const Test = (props) => {
+  const [startDate, setStartDate] = useState(new Date());
+  const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
+    <label className={styles.timeInput} onClick={onClick} ref={ref}>
+      {value}
+    </label>
+  ));
   return (
-    <div>
-      <button onClick={onClick}>click</button>
-      <ul>
-        {regArr &&
-          regArr.map((item, index) => {
-            return (
-              <li key={index}>
-                {item.time}
-                {item.file}
-              </li>
-            );
-          })}
-      </ul>
+    <div className={styles.test}>
+      <DatePicker
+        selected={startDate}
+        onChange={(date) => setStartDate(date)}
+        minDate={new Date()}
+        locale={ko}
+        customInput={<ExampleCustomInput />}
+      />
     </div>
   );
 };
-
 export default Test;

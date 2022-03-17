@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import RegAddForm from "../reg_add_form/reg_add_form";
-import RegList from "../reg_list/reg_list";
-import RepoTreeMenu from "../repo_tree_menu/repo_tree_menu";
+import Footer from "../footer/footer";
+import Header from "../header/header";
+import PreviewFile from "../preview_file/preview_file";
+import PreviewRepo from "../preview_repo/preview_repo";
+import styles from "./repo.module.css";
 
 const Repo = ({ authService, githubService, dbService }) => {
   const navigate = useNavigate();
@@ -14,9 +16,20 @@ const Repo = ({ authService, githubService, dbService }) => {
   const [contents, setContents] = useState(); // The contents of the file you clicked on the tree-menu component.
   const [path, setPath] = useState(""); // The path of the file you clicked on the tree-menu component.
   const [file, setFile] = useState(); // input file
+  const [commitMsg, setCommitMsg] = useState(); // input commit message
   const [fileContents, setFileContents] = useState(); // input file contents
   const [time, setTime] = useState(); // input time
   const [regsList, setRegList] = useState(); // reg list from DB
+  const [repoNameArr, setRepoNameArr] = useState();
+
+  const signOut = () => {
+    authService.signOut().then(() => setUserId());
+  };
+
+  const tokenDel = () => {
+    dbService.removeToken(userId);
+    navigate("/");
+  };
 
   const makeNode = () => {
     let td = { nodes: {} };
@@ -63,20 +76,18 @@ const Repo = ({ authService, githubService, dbService }) => {
     fileRef.current.files[0].text().then((res) => setFileContents(res));
   };
 
-  const timeHandler = (timeRef) => {
-    const st = new Date();
-    const end = new Date(timeRef.current.value);
-    if (st > end) {
-      alert("잘못된 입력입니다");
-      timeRef.current.value = null;
-    }
-    setTime(timeRef.current.value);
+  const timeHandler = (date) => {
+    setTime(new Date(date).toLocaleDateString());
+  };
+
+  const msgHandler = (msgRef) => {
+    setCommitMsg(msgRef.current.value);
   };
 
   const commitReg = (event) => {
     event.preventDefault();
     if (!(file && time)) {
-      alert("파일 ＊필수＊\n날짜 ＊필수＊\n경로 ＊선택＊");
+      alert("파일 ＊필수＊\n날짜 ＊필수＊\n경로 ＊선택＊\n커밋메세지 *선택*");
       return;
     }
 
@@ -90,10 +101,11 @@ const Repo = ({ authService, githubService, dbService }) => {
     dbService.write(
       userId,
       repo,
+      file.name,
       time,
       fileContents,
       `${path + file.name}`,
-      "HI"
+      commitMsg ? commitMsg : "commit from CRW"
     );
   };
 
@@ -112,6 +124,13 @@ const Repo = ({ authService, githubService, dbService }) => {
       setPath(parent + "/" + label + "/");
     }
   };
+
+  useEffect(() => {
+    authService.getUser((user) => {
+      if (user) setUserId(user.reloadUserInfo.screenName);
+      else navigate("/");
+    });
+  });
 
   useEffect(() => {
     let userName;
@@ -133,21 +152,27 @@ const Repo = ({ authService, githubService, dbService }) => {
     const callback = (data) => {
       setRegList(data);
     };
-    dbService.read2(userName, str, callback);
+    dbService.readObserver(userName, str, callback);
 
     dbService.read(userName, str).then((res) => {
       if (res.exists()) {
         setRegList(res.val());
-      } else {
-        console.log("no data");
       }
     });
 
     return callback;
-  }, []);
+  }, [location]);
 
   useEffect(() => {
     if (!userId && !repo) return;
+    githubService.list(userId).then((res) => {
+      let arr = [];
+      res.map((item) => {
+        arr.push(item.name);
+      });
+      setRepoNameArr(arr);
+    });
+
     githubService
       .getLastObjSha(userId, repo)
       .then((res) => {
@@ -165,31 +190,32 @@ const Repo = ({ authService, githubService, dbService }) => {
   }, [tree]);
 
   return (
-    <div>
-      <div>
-        <h1>{repo}</h1>
-        <h1>{userId}</h1>
-        {treeData && (
-          <RepoTreeMenu
-            treeData={treeData}
-            contents={contents}
-            path={path}
-            file={file}
-            treeClick={treeClick}
-          />
-        )}
-        <RegAddForm
+    <div className={styles.repoDoc}>
+      <Header
+        dbService={dbService}
+        userId={userId}
+        repoNameArr={repoNameArr}
+        signOut={signOut}
+        tokenDel={tokenDel}
+      />
+      <div className={styles.section}>
+        <PreviewRepo
+          regsList={regsList}
+          treeData={treeData}
+          repo={repo}
+          contents={contents}
+          path={path}
+          file={file}
+          treeClick={treeClick}
           fileHandler={fileHandler}
           timeHandler={timeHandler}
+          msgHandler={msgHandler}
           commitReg={commitReg}
+          commitDel={commitDel}
         />
-        {regsList && (
-          <RegList //
-            regsList={regsList}
-            commitDel={commitDel}
-          />
-        )}
+        <PreviewFile contents={contents} />
       </div>
+      <Footer />
     </div>
   );
 };

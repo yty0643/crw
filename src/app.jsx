@@ -12,8 +12,12 @@ import {
   faCircleUser,
   faCaretDown,
   faBell,
+  faThumbsUp,
+  faTrashCan,
+  faCirclePlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import Token from "./components/token/token";
 
 library.add(
   faCalendarDays,
@@ -21,15 +25,24 @@ library.add(
   faGithub,
   faCircleUser,
   faCaretDown,
-  faBell
+  faBell,
+  faThumbsUp,
+  faTrashCan,
+  faCirclePlus
 );
 const app = ({ authService, githubService, dbService }) => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route //
+        <Route
           path="/"
-          element={<Login authService={authService} />}
+          element={
+            <Login
+              authService={authService}
+              githubService={githubService}
+              dbService={dbService}
+            />
+          }
         />
         <Route
           path="/main"
@@ -53,7 +66,13 @@ const app = ({ authService, githubService, dbService }) => {
         />
         <Route
           path="/test"
-          element={<Test githubService={githubService} dbService={dbService} />}
+          element={
+            <Test
+              authService={authService}
+              githubService={githubService}
+              dbService={dbService}
+            />
+          }
         />
       </Routes>
     </BrowserRouter>

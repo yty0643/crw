@@ -1,16 +1,21 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
 import RepoListItem from "../repo_list_item/repo_list_item";
 import styles from "./repo_list.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const RepoList = ({ list, getRepo }) => {
+const RepoList = ({ list, regsList, getLag }) => {
   return (
     <div className={styles.repos}>
-      {list.map((item) => {
-        return <RepoListItem key={item.id} item={item} getRepo={getRepo} />;
-      })}
-      <Outlet />
+      {list &&
+        list.map((item) => {
+          return (
+            <RepoListItem
+              key={item.id}
+              item={item}
+              regsList={regsList && regsList[item.name]}
+              getLag={getLag}
+            />
+          );
+        })}
     </div>
   );
 };

@@ -1,0 +1,40 @@
+.token {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.title {
+  display: flex;
+}
+.description {
+  font-weight: 400;
+  text-decoration: none;
+  color: rgb(60, 82, 179);
+}
+
+.tokenInput {
+  outline: none;
+  width: 15rem;
+  margin: 0.3rem;
+}
+
+.btn {
+  width: 5rem;
+  border: 1px solid rgb(199, 215, 247);
+  transition: all 200ms ease-in;
+}
+
+.btn:hover {
+  transform: scale(1.1);
+  background-color: rgb(199, 215, 247);
+  color: white;
+}
+
+@media screen and (max-width: 768px) {
+  .title {
+    align-items: center;
+    flex-direction: column;
+  }
+}

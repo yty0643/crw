@@ -1,10 +1,36 @@
-@value CRW_black, CRW_white from '../../common/colors.css';
+@value CRW_darkBlack, CRW_lightWhite from '../../common/colors.css';
 
 .header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
-  background-color: CRW_black;
 }
 
-.title {
-  color: #dbdbdb;
+.logo {
+  font-size: 1rem;
+  padding: 0.4rem;
+  border: 3px solid rgb(63, 63, 63);
+  background-color: rgb(63, 63, 63);
+  color: white;
+  border-radius: 2rem;
+}
+
+.box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: 1rem 1.5rem;
+}
+
+.webName {
+  margin: 0 0.6rem;
+}
+
+.userBtn,
+.bellBtn {
+  font-size: 1.2rem;
+  color: rgb(63, 63, 63);
+  margin: 0 0.2rem;
 }

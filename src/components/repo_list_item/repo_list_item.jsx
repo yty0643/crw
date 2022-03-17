@@ -1,35 +1,34 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styles from "./repo_list_item.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const RepoListItem = ({ item, getRepo }) => {
-  const navigator = useNavigate();
-  const [repo, setRepo] = useState();
-  const [updated, setUpdate] = useState();
+const RepoListItem = ({ item, regsList, getLag }) => {
+  const [lag, setLag] = useState();
+  const navigate = useNavigate();
 
   const goto = () => {
-    navigator(`/main/${item.name}`);
+    navigate(`/main/${item.name}`);
   };
 
   useEffect(() => {
-    getRepo(item.name, (res) => {
+    getLag(item.name, (res) => {
       if (res.message) return;
-      setRepo(res);
-
-      setUpdate(new Date(res.updated_at).toLocaleDateString());
+      let str = "";
+      Object.keys(res).map((item) => {
+        str += item + " ";
+      });
+      setLag(str);
     });
   }, []);
 
-  useEffect(() => {
-    if (!repo) return;
-    console.log(repo);
-  }, [repo]);
-
   return (
     <div className={styles.repo} onClick={goto}>
-      <p>{item.name}</p>
-      {repo && <p>updated {updated}</p>}
+      <p className={styles.repoName}>{item.name}</p>
+      <p className={styles.updated}>
+        updated {new Date(item.updated_at).toLocaleDateString()}
+      </p>
+      {lag && <p className={styles.lag}>{lag}</p>}
+      {regsList && <p className={styles.commitLight}>●</p>}
     </div>
   );
 };

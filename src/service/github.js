@@ -5,9 +5,19 @@ class GithubService{
         });
     }
 
-    async list(userId) {
+    async list() {
         const res = await fetch(`https://api.github.com/user/repos`, {
             headers: this.myHeaders,
+        })
+        return await res.json();
+    }
+
+    async tokenTest(token) {
+        const myHeaders = new Headers({
+            Authorization:token,
+        });
+        const res = await fetch(`https://api.github.com/user/repos`, {
+            headers: myHeaders,
         })
         return await res.json();
     }
@@ -39,7 +49,7 @@ class GithubService{
             body: JSON.stringify({
                 base_tree:objsha,
                 tree: [{
-                    "path": path, //새 파일 추가할 경로 어떡하지
+                    "path": path,
                     "mode": "100644",
                     "type": "blob",
                     "sha": blobsha,
@@ -50,13 +60,13 @@ class GithubService{
         return await res.json();
     }
 
-    async getNewCommitSha(userId, repo, objsha,treeSha) {
+    async getNewCommitSha(userId, repo, msg, objsha, treeSha) {
         const res = await fetch(`https://api.github.com/repos/${userId}/${repo}/git/commits`, {
             method: 'POST',
             headers: this.myHeaders,
             redirect: 'follow',
             body: JSON.stringify({
-                "message": "add test commit from 3big-reactwebpage", //메세지 입력하게 해주고
+                "message": msg,
                 "parents": [
                     objsha
                 ],
@@ -97,8 +107,8 @@ class GithubService{
         return await res.json();
     }
 
-    async getRepo(userId, repo) {
-        const res = await fetch(`https://api.github.com/repos/${userId}/${repo}`, {
+    async getLanguages(userId, repo) {
+        const res = await fetch(`https://api.github.com/repos/${userId}/${repo}/languages`, {
             method: 'GET',
             headers: this.myHeaders,
             redirect: 'follow',
