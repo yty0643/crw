@@ -1,10 +1,10 @@
-# Commit Reservation Web Project
+# Commit Reservation Web Project / <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white"><img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white"><img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white"><img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"><img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=Firebase&logoColor=white"><img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white">
 
 ---
 
 ## 프로젝트 계획 이유
 
-다양한 RestAPI를 사용해보자는 취지에서 계획했습니다.
+다양한 Tool 및 apis를 사용해보자는 취지에서 계획했습니다.
 
 본 프로젝트는 1일 1커밋을 계획중인 개발자들이 커밋을 할 수 없는 상황이 생겼을때를 대비해서 미리 커밋을 생성하고 관리하고자 합니다.
 
@@ -15,7 +15,7 @@
 ## CRW 페이지 구성
 
 `login`
-사용자가 로그인할 수 있는 페이지입니다.
+사용자가 로그인 및 토큰을 입력할 수 있는 페이지입니다.
 github를 통해 사용자 인증을 할 수 있습니다.
 
 `main`
@@ -42,5 +42,3 @@ github를 통해 사용자 인증을 할 수 있습니다.
 - Trees
 - Repositories
 - Language
-
-[이건뭐]
