@@ -1,10 +1,12 @@
-# Commit Reservation Web Project / <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white"><img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white"><img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white"><img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"><img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=Firebase&logoColor=white"><img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white">
+# Commit Reservation Web Project
+
+## <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=JavaScript&logoColor=white"><img src="https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=CSS3&logoColor=white"><img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=HTML5&logoColor=white"><img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=React&logoColor=white"><img src="https://img.shields.io/badge/Firebase-FFCA28?style=flat&logo=Firebase&logoColor=white"><img src="https://img.shields.io/badge/GitHubAPI-181717?style=flat&logo=GitHub&logoColor=white">
 
 ---
 
 ## 프로젝트 계획 이유
 
-다양한 Tool 및 apis를 사용해보자는 취지에서 계획했습니다.
+다양한 기능과 REST API를 경헙하고 학습하자는 취지에서 계획했습니다.
 
 본 프로젝트는 1일 1커밋을 계획중인 개발자들이 커밋을 할 수 없는 상황이 생겼을때를 대비해서 미리 커밋을 생성하고 관리하고자 합니다.
 
@@ -24,15 +26,17 @@ github를 통해 사용자 인증을 할 수 있습니다.
 `repo`
 선택된 저장소의 디렉터리, 파일 내용, 커밋 일정 등의 정보와, 커밋 일정 추가 및 제거기능을 제공합니다.
 
-## 사용한 Tool 및 APIS
+## 사용한 툴
 
-`Firebase`
+`react`
+
+`Firebase API`
 (https://firebase.google.com/docs)
 
-- auto
+- auth
 - real time database
 
-`Github RESTAPIS`
+`Github API`
 (https://docs.github.com/en/rest)
 
 - Blobs
