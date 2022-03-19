@@ -34,7 +34,7 @@ const Main = ({ authService, githubService, dbService }) => {
 
   const getLag = (repo, callback) => {
     githubService //
-      .getLanguages(userId, repo)
+      .getLanguages(token, userId, repo)
       .then((res) => callback(res));
   };
 
@@ -42,20 +42,36 @@ const Main = ({ authService, githubService, dbService }) => {
     authService.getUser((user) => {
       if (user) {
         setUserId(user.reloadUserInfo.screenName);
-        dbService.readToken(user.reloadUserInfo.screenName).then((res) => {
-          if (res.exists()) {
-            setToken(res.val());
-          } else {
-            navigate("/");
-          }
-        });
+        dbService
+          .readToken(user.reloadUserInfo.screenName)
+          .then((res) => {
+            if (res.exists()) {
+              setToken(res.val());
+            } else {
+              navigate("/");
+            }
+          })
+          .catch((errer) => console.log(errer));
       } else navigate("/");
     });
   });
 
   useEffect(() => {
-    if (!userId) return;
-    githubService.list(userId).then((res) => {
+    if (!token || !userId) return;
+
+    githubService //
+      .tokenTest(token)
+      .then((res) => {
+        if (res.message) {
+          throw new Error();
+        }
+      })
+      .catch((error) => {
+        alert("만료된 TOKEN입니다.");
+        dbService.removeToken(userId);
+      });
+
+    githubService.list(token).then((res) => {
       let arr = [];
       res.map((item) => {
         arr.push(item.name);
@@ -69,7 +85,7 @@ const Main = ({ authService, githubService, dbService }) => {
         setRegsList(res.val());
       }
     });
-  }, [userId]);
+  }, [token, userId]);
 
   useEffect(() => {
     if (!regsList) return;
@@ -93,14 +109,15 @@ const Main = ({ authService, githubService, dbService }) => {
       // setTimeout(() => {
       //   let shaObj = {};
       //   githubService
-      //     .getLastObjSha(item.userId, item.repo)
+      //     .getLastObjSha(token, item.userId, item.repo)
       //     .then((res) => (shaObj.objSha = res[0].sha))
       //     .then(() =>
-      //       githubService.getNewBlobSha(item.userId, item.repo, item.contents)
+      //       githubService.getNewBlobSha(token, item.userId, item.repo, item.contents)
       //     )
       //     .then((res) => (shaObj.blobSha = res.sha))
       //     .then(() => {
       //       githubService.getNewTreeSha(
+      //         token,
       //         item.userId,
       //         item.repo,
       //         item.path,
@@ -111,6 +128,7 @@ const Main = ({ authService, githubService, dbService }) => {
       //     .then((res) => (shaObj.treeSha = res.sha))
       //     .then(() =>
       //       githubService.getNewCommitSha(
+      //         token,
       //         item.userId,
       //         item.repo,
       //         item.msg,
@@ -120,7 +138,7 @@ const Main = ({ authService, githubService, dbService }) => {
       //     )
       //     .then((res) => (shaObj.commitSha = res.sha))
       //     .then(() =>
-      //       githubService.updateReference(item.userId, item.repo, shaObj.commitSha)
+      //       githubService.updateReference(token, item.userId, item.repo, shaObj.commitSha)
       //     )
       //     .then((res) => console.log(res));
       // }, timeout);

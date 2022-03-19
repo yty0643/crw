@@ -38,8 +38,8 @@
   top: 0%;
   left: 100%;
   color: rgba(99, 212, 99, 0.753);
-  font-size: 1.7rem;
-  transform: translateX(-0.9rem) translateY(-0.9rem);
+  font-size: 45px;
+  transform: translateX(-50%) translateY(-55%);
 }
 
 @media screen and (max-width: 768px) {

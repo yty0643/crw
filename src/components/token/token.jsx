@@ -22,7 +22,7 @@ const Token = ({ userId, tokenTest }) => {
       <button
         className={styles.btn}
         onClick={() => {
-          tokenTest(tokenRef.current.value);
+          tokenTest(`token ${tokenRef.current.value}`);
         }}
       >
         Start

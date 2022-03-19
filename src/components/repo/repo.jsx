@@ -21,7 +21,7 @@ const Repo = ({ authService, githubService, dbService }) => {
   const [time, setTime] = useState(); // input time
   const [regsList, setRegList] = useState(); // reg list from DB
   const [repoNameArr, setRepoNameArr] = useState();
-
+  const [token, setToken] = useState();
   const signOut = () => {
     authService.signOut().then(() => setUserId());
   };
@@ -117,7 +117,7 @@ const Repo = ({ authService, githubService, dbService }) => {
   const treeClick = (type, sha, parent, label) => {
     if (type == "blob") {
       githubService
-        .getBlob(userId, repo, sha)
+        .getBlob(token, userId, repo, sha)
         .then((res) => setContents(atob(res.content)));
       parent && setPath(parent + "/");
     } else {
@@ -138,7 +138,17 @@ const Repo = ({ authService, githubService, dbService }) => {
     authService.getUser((user) => {
       if (user) {
         userName = user.reloadUserInfo.screenName;
-        setUserId(user.reloadUserInfo.screenName);
+        setUserId(userName);
+        dbService
+          .readToken(userName)
+          .then((res) => {
+            if (res.exists()) {
+              setToken(res.val());
+            } else {
+              navigate("/");
+            }
+          })
+          .catch((errer) => console.log(errer));
       } else navigate("/");
     });
 
@@ -164,25 +174,28 @@ const Repo = ({ authService, githubService, dbService }) => {
   }, [location]);
 
   useEffect(() => {
-    if (!userId && !repo) return;
-    githubService.list(userId).then((res) => {
-      let arr = [];
-      res.map((item) => {
-        arr.push(item.name);
-      });
-      setRepoNameArr(arr);
-    });
+    if (!token || !userId || !repo) return;
+    githubService
+      .list(token)
+      .then((res) => {
+        let arr = [];
+        res.map((item) => {
+          arr.push(item.name);
+        });
+        setRepoNameArr(arr);
+      })
+      .catch((error) => console.log(error));
 
     githubService
-      .getLastObjSha(userId, repo)
+      .getLastObjSha(token, userId, repo)
       .then((res) => {
         if (res.message) throw res.message;
         else return res[0].commit.tree.sha;
       })
-      .then((res) => githubService.getTree(userId, repo, res))
+      .then((res) => githubService.getTree(token, userId, repo, res))
       .then((res) => setTree(res.tree))
       .catch((err) => console.log(err));
-  }, [userId, repo]);
+  }, [token, userId, repo]);
 
   useEffect(() => {
     if (!tree) return;

@@ -21,7 +21,7 @@ const Login = ({ authService, githubService, dbService }) => {
   const tokenTest = (token) => {
     if (!token) return;
     githubService //
-      .list2(token)
+      .tokenTest(token)
       .then((res) => {
         if (res.message) {
           throw new Error();
