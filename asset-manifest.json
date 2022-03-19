@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/crw/static/css/main.3bf40e07.css",
+    "main.js": "/crw/static/js/main.545ffe14.js",
+    "index.html": "/crw/index.html",
+    "main.3bf40e07.css.map": "/crw/static/css/main.3bf40e07.css.map",
+    "main.545ffe14.js.map": "/crw/static/js/main.545ffe14.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3bf40e07.css",
+    "static/js/main.545ffe14.js"
+  ]
+}
