@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "./app.module.css";
 import Login from "./components/login/login";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Main from "./components/main/main";
@@ -17,7 +16,6 @@ import {
   faCirclePlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
-import Token from "./components/token/token";
 
 library.add(
   faCalendarDays,
@@ -32,7 +30,7 @@ library.add(
 );
 const app = ({ authService, githubService, dbService }) => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route
           path="/"
