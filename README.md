@@ -16,15 +16,57 @@
 
 ## CRW 페이지 구성
 
-`login`
-사용자가 로그인 및 토큰을 입력할 수 있는 페이지입니다.
-github를 통해 사용자 인증을 할 수 있습니다.
+### login page
 
-`main`
-사용자의 전체 커밋 일정, 깃허브 저장소 목록 및 추가정보를 제공하는 페이지입니다.
+- 웹 실행시 첫 페이지
+- Firebase Auth를 활용한 `GitHub login popup` 구현
+- Firebase Realtime-Database 를 활용한 누적되는 '좋아요'버튼 구현
+- GitHub API를 통한 사용자 저장소에 접근하기 위해 Personal Access Token 입력 `Token`컴포넌트 구현
 
-`repo`
-선택된 저장소의 디렉터리, 파일 내용, 커밋 일정 등의 정보와, 커밋 일정 추가 및 제거기능을 제공합니다.
+`Login`
+<img width="50%" src="https://user-images.githubusercontent.com/80657819/159114950-a5cd27c4-8aba-4d86-b03a-3a0a16c723b2.png">
+
+`Login / popup`
+<img width="100" alt="githublogin" src="https://user-images.githubusercontent.com/80657819/160287290-bba1f7a0-64f8-4464-89d7-945b1453b473.PNG">
+
+`Token`
+<img width="50%" src="https://user-images.githubusercontent.com/80657819/159114950-a5cd27c4-8aba-4d86-b03a-3a0a16c723b2.png">
+
+### main page
+
+- 사용자 인증 및 토큰 인증 완료 시 이동하는 페이지
+- 로그인된 사용자의 Firebase Realtime-Database에 등록된 커밋 일정을 읽고, 1주일 커밋 일정을 보여주는 `Schedule`컴포넌트 구현
+- GitHub API를 통해 읽어온 사용자의 깃허브 저장소 및 추가 정보를 보여주는 `RepoList`컴포넌트 구현
+
+`Main`
+<img width="50%" src="https://user-images.githubusercontent.com/80657819/159115009-e0112c2a-e188-46dd-a551-7b67db296454.png">
+
+### repo page
+
+- main page에서 저장소 컴포넌트 선택 시 이동하는 페이지
+- Firebase Realtime-Database에 등록된 저장소의 커밋일정을 보여주는 `RegList`컴포넌트 구현
+- Firebase Realtime-Database에 커밋 일정 추가 및 제거 `RegAddForm`컴포넌트 구현
+- 선택된 저장소의 디렉터리 구조를 react-simple-tree-menu 라이브러리를 활용하여 `PreviewRepo`컴포넌트 구현
+- TreeMenu에 있는 파일 클릭 시 해당 파일 내용 미리보기 `PreviewFile`컴포넌트 구현
+
+`Repo`
+<img width="50%" src="https://user-images.githubusercontent.com/80657819/159115047-c2acfb8f-71ee-41bc-9f68-5cdca4e366af.png">
+
+### Header
+
+- main page 및 repo page에서 화면 상단에 고정된 Header 컴포넌트
+- CRW 로고 버튼 클릭시 main page로 이동
+- 사용자 버튼 클릭시 저장소 이동, 로그아웃, 등록된 토큰 제거 기능을 가진 `UserInfo`컴포넌트 생성
+- 메세지 버튼 클릭시 개발자에게 코맨트를 작성할 수 있는 `Comment`컴포넌트 생성
+
+`Header`
+<img width="949" alt="header" src="https://user-images.githubusercontent.com/80657819/160288895-69074976-167e-42b6-aeec-2a52047b0b2c.PNG">
+
+`UserInfo`
+<img width="131" alt="userinfo" src="https://user-images.githubusercontent.com/80657819/159115077-2a130906-5e9c-48a5-a197-dff359a7c1df.PNG">
+
+`Comment`
+<img width="131" alt="2" src="https://user-images.githubusercontent.com/80657819/159115079-a96eff79-0b6f-4dc5-88b9-3bdb8f413f6d.PNG">
 
 ## 사용한 툴
 

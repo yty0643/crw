@@ -58,7 +58,6 @@ const Main = ({ authService, githubService, dbService }) => {
 
   useEffect(() => {
     if (!token || !userId) return;
-
     githubService //
       .tokenTest(token)
       .then((res) => {
