@@ -10,11 +10,21 @@
 
 본 프로젝트는 1일 1커밋을 계획중인 개발자들이 커밋을 할 수 없는 상황이 생겼을때를 대비해서 미리 커밋을 생성하고 관리하고자 합니다.
 
+---
+
 ## 프로젝트 기능 설명
 
 로그인한 사용자의 커밋 일정, 깃허브 저장소 및 추가정보를 제공하고 특정 날짜에 커밋 예약 및 관리할 수 있습니다.
 
+---
+
 ## CRW 페이지 구성
+
+- login
+- main
+- repo
+
+---
 
 ### login page
 
@@ -35,6 +45,8 @@
 
 <img width="50%" src="https://user-images.githubusercontent.com/80657819/160290472-4adf9f3d-5c9f-46c8-a8f6-aa29262072ff.png">
 
+---
+
 ### main page
 
 - 사용자 인증 및 토큰 인증 완료 시 이동하는 페이지
@@ -44,6 +56,8 @@
 `Main`
 
 <img width="50%" src="https://user-images.githubusercontent.com/80657819/159115009-e0112c2a-e188-46dd-a551-7b67db296454.png">
+
+---
 
 ### repo page
 
@@ -56,6 +70,8 @@
 `Repo`
 
 <img width="50%" src="https://user-images.githubusercontent.com/80657819/159115047-c2acfb8f-71ee-41bc-9f68-5cdca4e366af.png">
+
+---
 
 ### Header
 
@@ -75,6 +91,8 @@
 `Comment`
 
 <img width="131" alt="2" src="https://user-images.githubusercontent.com/80657819/159115079-a96eff79-0b6f-4dc5-88b9-3bdb8f413f6d.PNG">
+
+---
 
 ## 사용한 툴
 
@@ -96,3 +114,5 @@
 - Trees
 - Repositories
 - Language
+
+---
