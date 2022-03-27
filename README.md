@@ -18,15 +18,41 @@
 
 ---
 
-## CRW 페이지 구성
+## 사용한 툴
 
-- login
-- main
-- repo
+> Firebase API
+> GitHub API
+
+### 1. [Firebase API](https://firebase.google.com/docs)
+
+: 이러이러한 이유로 선정했다.
+
+- Auth
+- Real time database
+
+### 2. [Github API](https://docs.github.com/en/rest)
+
+: 이러이러한 이유로 선정했다.
+
+- Blobs
+- Commits
+- References
+- Tags
+- Trees
+- Repositories
+- Language
 
 ---
 
-### login page
+## CRW 페이지 구성
+
+>     핵심기능에 대해서만 설명되어 있습니다.
+>
+> 1.  login
+> 2.  main
+> 3.  repo
+
+### 1. login page
 
 - 웹 실행시 첫 페이지
 - Firebase Auth를 활용한 `GitHub login popup` 구현
@@ -47,7 +73,7 @@
 
 ---
 
-### main page
+### 2. main page
 
 - 사용자 인증 및 토큰 인증 완료 시 이동하는 페이지
 - 로그인된 사용자의 Firebase Realtime-Database에 등록된 커밋 일정을 읽고, 1주일 커밋 일정을 보여주는 `Schedule`컴포넌트 구현
@@ -59,7 +85,7 @@
 
 ---
 
-### repo page
+### 3. repo page
 
 - main page에서 저장소 컴포넌트 선택 시 이동하는 페이지
 - Firebase Realtime-Database에 등록된 저장소의 커밋일정을 보여주는 `RegList`컴포넌트 구현
@@ -91,28 +117,5 @@
 `Comment`
 
 <img width="131" alt="2" src="https://user-images.githubusercontent.com/80657819/159115079-a96eff79-0b6f-4dc5-88b9-3bdb8f413f6d.PNG">
-
----
-
-## 사용한 툴
-
-`react`
-
-`Firebase API`
-(https://firebase.google.com/docs)
-
-- auth
-- real time database
-
-`Github API`
-(https://docs.github.com/en/rest)
-
-- Blobs
-- Commits
-- References
-- Tags
-- Trees
-- Repositories
-- Language
 
 ---
