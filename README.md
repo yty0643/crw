@@ -18,21 +18,17 @@
 
 ---
 
-## 사용한 툴
+## 사용한 API
 
-> Firebase API
-> GitHub API
+> 1. Firebase
+> 2. GitHub
 
 ### 1. [Firebase API](https://firebase.google.com/docs)
-
-: 이러이러한 이유로 선정했다.
 
 - Auth
 - Real time database
 
 ### 2. [Github API](https://docs.github.com/en/rest)
-
-: 이러이러한 이유로 선정했다.
 
 - Blobs
 - Commits
@@ -46,7 +42,7 @@
 
 ## CRW 페이지 구성
 
->     핵심기능에 대해서만 설명되어 있습니다.
+> 핵심기능에 대해서만 설명되어 있습니다.
 >
 > 1.  login
 > 2.  main
