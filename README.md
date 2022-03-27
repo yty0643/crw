@@ -40,6 +40,12 @@
 - Repositories
 - Language
 
+### 3. [react-router-dom](https://reactrouter.com/docs/en/v6)
+
+### 4. [fontawesome](https://fontawesome.com/docs/web/use-with/react/)
+
+### 5. [react-simple-tree-menu](https://github.com/iannbing/react-simple-tree-menu#readme)
+
 ---
 
 ## CRW 페이지 구성
