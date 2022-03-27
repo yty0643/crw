@@ -48,7 +48,9 @@ const Login = ({ authService, githubService, dbService }) => {
 
   useEffect(() => {
     authService.getUser((user) => {
-      if (user) setUserId(user.reloadUserInfo.screenName);
+      if (user) {
+        setUserId(user.reloadUserInfo.screenName);
+      }
     });
     dbService.readLike().then((res) => setLikeNum(res.val()));
   }, []);

@@ -104,43 +104,55 @@ const Main = ({ authService, githubService, dbService }) => {
       const st = new Date();
       const end = new Date(item.time);
       const cmp = end - st;
-      console.log(`${cmp}ms 뒤에 ${item.repo}에서 ${item.path} 커밋예정`);
-      // setTimeout(() => {
-      //   let shaObj = {};
-      //   githubService
-      //     .getLastObjSha(token, item.userId, item.repo)
-      //     .then((res) => (shaObj.objSha = res[0].sha))
-      //     .then(() =>
-      //       githubService.getNewBlobSha(token, item.userId, item.repo, item.contents)
-      //     )
-      //     .then((res) => (shaObj.blobSha = res.sha))
-      //     .then(() => {
-      //       githubService.getNewTreeSha(
-      //         token,
-      //         item.userId,
-      //         item.repo,
-      //         item.path,
-      //         shaObj.objSha,
-      //         shaObj.blobSha
-      //       );
-      //     })
-      //     .then((res) => (shaObj.treeSha = res.sha))
-      //     .then(() =>
-      //       githubService.getNewCommitSha(
-      //         token,
-      //         item.userId,
-      //         item.repo,
-      //         item.msg,
-      //         shaObj.objSha,
-      //         shaObj.treeSha
-      //       )
-      //     )
-      //     .then((res) => (shaObj.commitSha = res.sha))
-      //     .then(() =>
-      //       githubService.updateReference(token, item.userId, item.repo, shaObj.commitSha)
-      //     )
-      //     .then((res) => console.log(res));
-      // }, timeout);
+      if (cmp > 0) {
+        console.log(`${cmp}ms 뒤에 ${item.repo}에서 ${item.path} 커밋예정`);
+        setTimeout(() => {
+          let shaObj = {};
+          githubService
+            .getLastObjSha(token, item.userId, item.repo)
+            .then((res) => (shaObj.objSha = res[0].sha))
+            .then(() =>
+              githubService.getNewBlobSha(
+                token,
+                item.userId,
+                item.repo,
+                item.contents
+              )
+            )
+            .then((res) => (shaObj.blobSha = res.sha))
+            .then(() => {
+              githubService.getNewTreeSha(
+                token,
+                item.userId,
+                item.repo,
+                item.path,
+                shaObj.objSha,
+                shaObj.blobSha
+              );
+            })
+            .then((res) => (shaObj.treeSha = res.sha))
+            .then(() =>
+              githubService.getNewCommitSha(
+                token,
+                item.userId,
+                item.repo,
+                item.msg,
+                shaObj.objSha,
+                shaObj.treeSha
+              )
+            )
+            .then((res) => (shaObj.commitSha = res.sha))
+            .then(() =>
+              githubService.updateReference(
+                token,
+                item.userId,
+                item.repo,
+                shaObj.commitSha
+              )
+            )
+            .then((res) => console.log(res));
+        }, cmp);
+      }
     });
   }, [regsList]);
 
