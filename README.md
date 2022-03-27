@@ -18,10 +18,13 @@
 
 ---
 
-## 사용한 API
+## 사용한 기술
 
-> 1. Firebase
-> 2. GitHub
+> 1. Firebase API
+> 2. GitHub API
+> 3. react-router-dom
+> 4. fontawesome
+> 5. react-simple-tree-menu
 
 ### 1. [Firebase API](https://firebase.google.com/docs)
 
