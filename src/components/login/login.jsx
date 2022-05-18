@@ -103,7 +103,7 @@ const Login = ({ authService, githubService, dbService }) => {
             </div>
           </div>
           <p className={styles.description}>
-            2022 tayoung - all rights reserved{" "}
+            2022 tayoung - all rights reserved
           </p>
         </section>
       )}
